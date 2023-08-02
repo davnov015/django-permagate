@@ -129,4 +129,3 @@ STATIC_ROOT = STATIC_URL
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-PERMAGATE_PERMISSIONS = "django_permagate.permissions"
