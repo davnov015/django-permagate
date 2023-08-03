@@ -23,21 +23,36 @@ class PermissionLoaderTest(TestCase):
 
 
 class PermissionTest(TestCase):
+    def setUp(self) -> None:
+        self.root = _load_permission_root("permagate.test_permissions")
+
     def test_root(self):
-        root = _load_permission_root("permagate.test_permissions")
-        self.assertTrue(root.exists("test"))
-        self.assertTrue(root.exists("test.sub1"))
-        self.assertTrue(root.exists("test.sub2"))
-        self.assertFalse(root.exists("test.sub4"))
-        self.assertTrue(root.exists("test2"))
-        self.assertTrue(root.exists("*"))
-        self.assertTrue(root.exists("test>"))
-        self.assertRaises(AssertionError, root.exists, "*.test")
-        self.assertRaises(AssertionError, root.exists, ">")
+        self.assertTrue(self.root.exists("test"))
+        self.assertTrue(self.root.exists("test.sub1"))
+        self.assertTrue(self.root.exists("test.sub2"))
+        self.assertFalse(self.root.exists("test.sub4"))
+        self.assertTrue(self.root.exists("test2"))
+        self.assertTrue(self.root.exists("*"))
+        self.assertTrue(self.root.exists("test>"))
+        self.assertRaises(AssertionError, self.root.exists, "*.test")
+        self.assertRaises(AssertionError, self.root.exists, ">")
+
+    def test_permission_list(self):
+        expected_list = [
+            "*",
+            "test",
+            "test>",
+            "test.sub1",
+            "test.sub2",
+            "test.sub3",
+            "test2",
+        ]
+        self.assertEqual(self.root.permission_list, expected_list)
 
 
 class HasPermissionTest(TestCase):
     path = "permagate.test_permissions"
+
     def setUp(self) -> None:
         self.group, _ = Group.objects.get_or_create(name="test")
         self.user, _ = User.objects.get_or_create(username="tester")
@@ -48,7 +63,6 @@ class HasPermissionTest(TestCase):
         GroupPermission.objects.get_or_create(group=self.group, permission="test.sub3")
         UserPermission.objects.get_or_create(user=self.userTwo, permission="test>")
         UserPermission.objects.get_or_create(user=self.rootUser, permission="*")
-
 
     def test_user_permissions(self):
 
@@ -76,4 +90,3 @@ class HasPermissionTest(TestCase):
         self.assertTrue(has_permission(self.rootUser, "test.sub1", self.path))
         self.assertTrue(has_permission(self.rootUser, "test", self.path))
         self.assertTrue(has_permission(self.rootUser, "test2", self.path))
-

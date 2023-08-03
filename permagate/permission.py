@@ -102,3 +102,18 @@ class Permission:
                 elif key_matches:
                     return True  # We're at the last permission segment and the current key matched
         return False
+
+    @property
+    def permission_list(self) -> list[str]:
+        """
+        Retrieves a list of all available permission strings that may be assigned to users. The list includes the
+        permission represented by the current instance as well as the child permissions.
+        :return:
+        """
+        permissions = [self.absolute_permission]
+        if len(self._children) and not self.is_root:
+            permissions.append(f"{self.absolute_permission}>")
+
+        for child in self._children:
+            permissions += child.permission_list
+        return permissions
