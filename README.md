@@ -10,11 +10,11 @@ directly to users and groups.
    # Add it to the list of installed apps in Django's settings.py:
    INSTALLED_APPS = [
         ...,
-        "django-permagate",
+        "permagate",
    ]
    ```
 3. ```python manage.py migrate``` to create the permission models
-4. Set the ```PERMAGATE_PERMISSIONS``` environmental variable to the module defining the root permission (see below)
+4. Set the ```PERMAGATE_PERMISSIONS``` settings variable to the module defining the root permission (see below)
 
 # Usage
 
@@ -53,7 +53,7 @@ root = Permission().register([
 
 ```
 
-The environmental variable ```PERMAGATE_PERMISSIONS``` should be set to the path of the 
+The settings variable ```PERMAGATE_PERMISSIONS``` should be set to the path of the 
 module defining the root permission variable:
 ```python
 # Assuming there's a permissions.py file in mymodule containing a variable named 'root' 

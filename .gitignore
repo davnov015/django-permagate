@@ -3,5 +3,7 @@ __pycache__
 static
 django_permagate
 manage.py
+*.egg-info
+dist
 .idea
 .env

@@ -1,5 +1,5 @@
 from django.db.models import QuerySet
-from .models import UserPermission, GroupPermission, User
+from .models import User
 from .permission import Permission
 import logging
 
@@ -31,7 +31,7 @@ def has_permission(user: User, permission: str) -> bool:
 
 
 def _has_permission(
-    queryset: QuerySet[UserPermission, GroupPermission],
+    queryset: QuerySet,
     permission: str,
     wildcard_only: bool = False,
 ) -> bool:
