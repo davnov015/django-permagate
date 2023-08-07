@@ -20,25 +20,17 @@ class UserPermission(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="permagate_permissions"
     )
-    permission = models.CharField(validators=[validate_permission])
+    permission = models.CharField(validators=[validate_permission], max_length=255)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["user", "permission"], name="unique_user_permission"
-            )
-        ]
+        unique_together = ["user", "permission"]
 
 
 class GroupPermission(models.Model):
     group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name="permagate_permissions"
     )
-    permission = models.CharField(validators=[validate_permission])
+    permission = models.CharField(validators=[validate_permission], max_length=255)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["group", "permission"], name="unique_group_constraint"
-            )
-        ]
+        unique_together = ["group", "permission"]

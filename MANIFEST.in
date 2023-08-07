@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+exclude django_permagate/*
+exclude manage.py
