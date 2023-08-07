@@ -1,4 +1,7 @@
 venv
 __pycache__
 static
+django_permagate
+manage.py
+.idea
 .env
