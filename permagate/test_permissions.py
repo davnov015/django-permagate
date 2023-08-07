@@ -7,7 +7,11 @@ root = Permission().register(
             [
                 Permission("sub1", "Sub perm"),
                 Permission("sub2"),
-                Permission("sub3"),
+                Permission("sub3").register(
+                    [
+                        Permission("sub"),
+                    ]
+                ),
             ]
         ),
         Permission("test2", "Test", "Test perm"),
