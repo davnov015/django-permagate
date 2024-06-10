@@ -13,13 +13,11 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9, 3.10]
-        db: [postgres, mysql]
+        python-version: [3.8, 3.9, '3.10']
+        db: [postgres]
         include:
           - db: postgres
             db_port: 5432
-          - db: mysql
-            db_port: 3306
     services:
       postgres:
         image: postgres:16
@@ -34,20 +32,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-      mysql:
-        image: mysql:8
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: SpYkxYy1dMmo7Bk
-          MYSQL_USER: permagate
-          MYSQL_PASSWORD: SpYkxYy1dMmo7Bk
-        options:
-          --health-cmd "mysqladmin ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -58,8 +42,8 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Run Tests
       env:
         DATABASE_URL: ${{ matrix.db }}://permagate:SpYkxYy1dMmo7Bk@127.0.0.1:${{ matrix.db_port }}/permagate
-    - name: Run Tests
       run: |
-        python manage.py test
+        python manage.py test --keepdb

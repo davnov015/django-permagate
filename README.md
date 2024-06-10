@@ -1,6 +1,5 @@
 # PermaGate
 
------
 [![Django CI](https://github.com/davnov015/django-permagate/actions/workflows/django.yml/badge.svg)](https://github.com/davnov015/django-permagate/actions/workflows/django.yml)
 
 PermaGate is a Django permissions system which offers hierarchical permissions that can be
