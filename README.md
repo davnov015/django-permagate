@@ -1,5 +1,8 @@
 # PermaGate
 
+-----
+[![Django CI](https://github.com/davnov015/django-permagate/actions/workflows/django.yml/badge.svg)](https://github.com/davnov015/django-permagate/actions/workflows/django.yml)
+
 PermaGate is a Django permissions system which offers hierarchical permissions that can be
 directly to users and groups.
 
@@ -97,10 +100,10 @@ test_user_two = User.objects.create(username="test2")
 test_group.user_set.add(test_user_two)
 
 if has_permission(test_user, "test.sub1"):
-    print(f"User {test_user.username} has permission test.sub1 due to directly assignment")
+    print(f"User {test_user.username} has permission test.sub1 due to direct assignment")
 
 if has_permission(test_user_two, "test.sub1"):
-    print(f"fUser {test_user_two.username} has permission test.sub1 via group assignment")
+    print(f"User {test_user_two.username} inherits permission test.sub1 via group assignment")
 ```
 
 Note that the permission strings assigned to users may include the inclusive wildcard
