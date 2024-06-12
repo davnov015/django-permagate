@@ -2,8 +2,8 @@
 
 [![Django CI](https://github.com/davnov015/django-permagate/actions/workflows/django.yml/badge.svg)](https://github.com/davnov015/django-permagate/actions/workflows/django.yml)
 
-PermaGate is a Django permissions system which offers hierarchical permissions that can be
-directly to users and groups.
+PermaGate is a Django permission system which offers hierarchical permissions that can be
+assigned to users and groups.
 
 # Installation
 
@@ -74,8 +74,8 @@ PERMAGATE_PERMISSIONS = "mymodule.permissions:permission_root"
 Permissions in the user-defined hierarchy may be referenced using dot-separated strings,
 where each string segment is a permission key. The '*' and '>' are special characters
 where:
-1. '>' is referred as the inclusive wildcard since it references the current permission and its children
-2. '*' references the root permission and is considered as its key
+1. '>' is referred to as the *inclusive wildcard* since it references the current permission and its children
+2. '*' references the root permission and is treated as its key
 
 To assign user and group permissions and check user access:
 
@@ -106,4 +106,4 @@ if has_permission(test_user_two, "test.sub1"):
 ```
 
 Note that the permission strings assigned to users may include the inclusive wildcard
-character while absolute permissions strings must be used when checking user permissions.
+character while absolute permission paths must be used when verifying user permissions.
